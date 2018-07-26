@@ -32,10 +32,10 @@ export default {
     },
     imgPreview(file) {
       let self = this;
-      let Orientation;
+      let orientation;
       //去获取拍照时的信息，解决拍出来的照片旋转问题
       EXIF.getData(file, function() {
-        Orientation = EXIF.getTag(this, "Orientation");
+        orientation = EXIF.getTag(this, "Orientation");
       });
       // 看支持不支持FileReader
       if (!file || !window.FileReader) return;
@@ -55,7 +55,7 @@ export default {
             self.postImg();
           } else {
             img.onload = function() {
-              let data = compressImg(img, {Orientation,quality: 0.5});
+              let data = compressImg(img, {orientation,quality: 0.5});
               self.headerImage = data;
               self.postImg();
             };
